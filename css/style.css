@@ -1,0 +1,468 @@
+/* ============================================================
+   style.css
+   Design tokens → reset → layout → components → utilities
+   ============================================================ */
+
+/* ── Tokens ────────────────────────────────────────────────── */
+:root {
+  --bg:          #0B1020;
+  --surface:     #131929;
+  --card:        #18223A;
+  --card-hover:  #1E2C47;
+  --border:      #30446D;
+  --border-sub:  #243252;
+  --primary:     #4F9DFF;
+  --primary-dim: rgba(79, 157, 255, 0.15);
+  --winner:      #20C997;
+  --winner-dim:  rgba(32, 201, 151, 0.15);
+  --danger:      #FF5C5C;
+  --text:        #FFFFFF;
+  --text-sec:    #A8B3C5;
+  --text-mute:   #4E607F;
+  --radius-sm:   6px;
+  --radius-md:   10px;
+  --radius-lg:   16px;
+  --shadow-card: 0 2px 12px rgba(0,0,0,0.4);
+  --shadow-glow: 0 0 0 2px rgba(79, 157, 255, 0.35);
+  --transition:  150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --font:        'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Layout — keep in sync with bracket.js constants */
+  --card-w:      180px;
+  --connector-w: 52px;
+  --team-h:      46px;   /* TEAM_H in bracket.js */
+  --divider-h:   1px;
+}
+
+/* ── Reset ─────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font);
+  font-size: 14px;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Page Shell ────────────────────────────────────────────── */
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ── Header ────────────────────────────────────────────────── */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(11, 16, 32, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-sub);
+  padding: 0 24px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.brand-badge {
+  background: var(--primary);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+}
+
+.brand-title {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.brand-sub {
+  font-size: 12px;
+  color: var(--text-sec);
+  font-weight: 400;
+}
+
+/* ── Toolbar ───────────────────────────────────────────────── */
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background var(--transition), border-color var(--transition), color var(--transition), transform var(--transition);
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.btn:active { transform: scale(0.97); }
+
+.btn-ghost {
+  background: transparent;
+  border-color: var(--border);
+  color: var(--text-sec);
+}
+.btn-ghost:hover {
+  background: var(--card-hover);
+  border-color: var(--primary);
+  color: var(--text);
+}
+
+.btn-primary {
+  background: var(--primary-dim);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+.btn-primary:hover {
+  background: var(--primary);
+  color: #fff;
+}
+
+.btn-danger {
+  background: transparent;
+  border-color: var(--border);
+  color: var(--text-mute);
+}
+.btn-danger:hover {
+  background: rgba(255, 92, 92, 0.12);
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.btn-icon { font-size: 14px; }
+
+/* ── Legend chip ───────────────────────────────────────────── */
+.header-legend {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-sec);
+}
+
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.legend-dot.winner  { background: var(--winner); }
+.legend-dot.primary { background: var(--primary); }
+
+/* ── Bracket scroll wrapper ────────────────────────────────── */
+.bracket-scroll {
+  flex: 1;
+  overflow-x: auto;
+  overflow-y: auto;
+  padding: 32px 24px 48px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+.bracket-scroll::-webkit-scrollbar { height: 6px; width: 6px; }
+.bracket-scroll::-webkit-scrollbar-track { background: transparent; }
+.bracket-scroll::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+/* ── Bracket Root ──────────────────────────────────────────── */
+#bracket-root {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  min-width: max-content;
+  padding: 30px;
+}
+
+/* ── Main bracket (horizontal columns) ────────────────────── */
+.bracket-main {
+  display: flex;
+  align-items: stretch;   /* connector cols stretch to tallest column */
+  gap: 0;
+}
+
+/* ── Round Column ──────────────────────────────────────────── */
+.round-column {
+  display: flex;
+  flex-direction: column;
+  width: var(--card-w);
+  flex-shrink: 0;
+  /* Height is driven by the tallest column (R32).
+     Other columns naturally align via the mathematical padding. */
+}
+
+.round-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+  padding: 0 4px 12px;
+  text-align: center;
+}
+
+.matches-wrapper {
+  display: flex;
+  flex-direction: column;
+  /* No gap here — spacing is applied per .match-item by bracket.js
+     so every card aligns perfectly with its feeder pair */
+}
+
+/* Wrapper for a single match card inside a column */
+.match-item {
+  flex-shrink: 0;
+}
+
+/* ── Match Card ────────────────────────────────────────────── */
+.match-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.match-card:hover {
+  border-color: var(--primary);
+  box-shadow: var(--shadow-card), 0 0 0 1px var(--primary-dim);
+}
+
+/* ── Team Row ──────────────────────────────────────────────── */
+.team-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px;
+  height: var(--team-h);
+  cursor: pointer;
+  transition: background var(--transition);
+  user-select: none;
+  position: relative;
+}
+
+.team-row:hover:not(.team-empty) {
+  background: var(--card-hover);
+}
+
+.team-row:focus-visible {
+  outline: none;
+  box-shadow: inset var(--shadow-glow);
+}
+
+.team-empty {
+  cursor: default;
+  opacity: 0.45;
+}
+
+.team-flag {
+  font-size: 16px;
+  line-height: 1;
+  flex-shrink: 0;
+  width: 20px;
+  text-align: center;
+}
+
+.team-name {
+  flex: 1;
+  font-size: 13px;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--text);
+}
+
+.team-empty .team-name {
+  color: var(--text-mute);
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* Winner state */
+.team-winner {
+  background: var(--winner-dim);
+}
+
+.team-winner .team-name {
+  color: var(--winner);
+  font-weight: 600;
+}
+
+.team-winner:hover {
+  background: rgba(32, 201, 151, 0.22);
+}
+
+.winner-check {
+  font-size: 11px;
+  color: var(--winner);
+  opacity: 0;
+  flex-shrink: 0;
+  font-weight: 700;
+  transition: opacity var(--transition);
+}
+
+.team-winner .winner-check {
+  opacity: 1;
+}
+
+/* Divider between team rows */
+.match-divider {
+  height: var(--divider-h);
+  background: var(--border-sub);
+  margin: 0;
+}
+
+/* ── Drag states ───────────────────────────────────────────── */
+.team-row.dragging {
+  opacity: 0.35;
+}
+
+.team-row.drop-target {
+  background: var(--primary-dim);
+  outline: 2px dashed var(--primary);
+  outline-offset: -2px;
+}
+
+.team-row[draggable="true"] {
+  cursor: grab;
+}
+
+.team-row[draggable="true"]:active {
+  cursor: grabbing;
+}
+
+/* ── Connector Column ──────────────────────────────────────── */
+.connector-col {
+  width: var(--connector-w);
+  flex-shrink: 0;
+  position: relative;
+  align-self: stretch;
+}
+
+.connector-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* ── Third Place ───────────────────────────────────────────── */
+.third-place-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /* Offset: 4 round columns + 4 connector gaps to sit under SF area */
+  padding-left: calc((var(--card-w) + var(--connector-w)) * 3 + var(--card-w) / 2);
+}
+
+.third-label {
+  color: var(--text-mute);
+}
+
+.third-place-section .match-card {
+  border-color: var(--border-sub);
+  opacity: 0.9;
+}
+
+/* ── Utility ───────────────────────────────────────────────── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Responsive ────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .site-header {
+    padding: 0 12px;
+    height: auto;
+    flex-wrap: wrap;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    gap: 10px;
+  }
+
+  .header-legend { display: none; }
+
+  .bracket-scroll { padding: 16px 12px 40px; }
+
+  .btn { padding: 6px 10px; font-size: 12px; }
+  .btn .btn-label { display: none; }
+}
+
+@media (max-width: 600px) {
+  :root {
+    --card-w:       160px;
+    --connector-w:  36px;
+    --team-h:       42px;
+  }
+  .team-flag { display: none; }
+  .brand-sub { display: none; }
+}
+
+/* ── Animations ────────────────────────────────────────────── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0);   }
+}
+
+.match-card {
+  animation: fadeInUp 200ms ease both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .match-card { animation: none; }
+  * { transition: none !important; }
+}
