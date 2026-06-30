@@ -24,7 +24,7 @@ export const INITIAL_BRACKET = {
   // ── Round of 32 ─────────────────────────────────────────────────────────
   r32: [
     { id: 'r32-1',  team1: 'South Africa',     team2: 'Canada',       winner: 'Canada', nextMatch: 'r16-1', nextSlot: 1 },
-    { id: 'r32-2',  team1: 'Netherlands',     team2: 'Morocco',      winner: null, nextMatch: 'r16-1', nextSlot: 2 },
+    { id: 'r32-2',  team1: 'Netherlands',     team2: 'Morocco',      winner: 'Morocco', nextMatch: 'r16-1', nextSlot: 2 },
     { id: 'r32-3',  team1: 'Germany',        team2: 'Paraguay',       winner: 'Paraguay', nextMatch: 'r16-2', nextSlot: 1 },
     { id: 'r32-4',  team1: 'France',       team2: 'Sweden',  winner: null, nextMatch: 'r16-2', nextSlot: 2 },
     { id: 'r32-5',  team1: 'Belgium',        team2: 'Senegal',        winner: null, nextMatch: 'r16-3', nextSlot: 1 },
@@ -43,7 +43,7 @@ export const INITIAL_BRACKET = {
 
   // ── Round of 16 ──────────────────────────────────────────────────────────
   r16: [
-    { id: 'r16-1', team1: 'Canada', team2: null, winner: null, nextMatch: 'qf-1', nextSlot: 1 },
+    { id: 'r16-1', team1: 'Canada', team2: 'Morocco', winner: null, nextMatch: 'qf-1', nextSlot: 1 },
     { id: 'r16-2', team1: 'Paraguay', team2: null, winner: null, nextMatch: 'qf-1', nextSlot: 2 },
     { id: 'r16-3', team1: null, team2: null, winner: null, nextMatch: 'qf-2', nextSlot: 1 },
     { id: 'r16-4', team1: null, team2: null, winner: null, nextMatch: 'qf-2', nextSlot: 2 },
